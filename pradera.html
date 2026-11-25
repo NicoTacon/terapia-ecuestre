@@ -274,7 +274,7 @@ Terapia Ecuestre</a>
 <a class="btn" href="#pedido" style="background: #B5653A; color: #FFFFFF; text-decoration: none; padding: 16px 28px; border-radius: 999px; font-weight: 600">Quiero mi oráculo</a>
 <span style="font-family: Fraunces, serif; font-size: 30px; color: #2B2A22">{{oPrecio}}</span>
 </div>
-<p style="margin: 0; font-size: 14px; color: #6B6754">Te lo enviamos a tu casa. Completás tus datos, transferís y le avisás a Yani por WhatsApp.</p>
+<p style="margin: 0; font-size: 14px; color: #6B6754">Te lo enviamos a tu casa. Completás tus datos, pagás con Mercado Pago y le avisás a Yani por WhatsApp. El envío se paga aparte.</p>
 </div>
 <div class="rv" style="flex: 0 0 auto; width: min(400px, 100%); aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: #EFE7D6">
 <img src="media/21b2e80ec68e1c485ead5fde829994a5.jpg" alt="Caja del oráculo Almas al Galope con dos cartas" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block">
@@ -303,12 +303,12 @@ Terapia Ecuestre</a>
 <div class="rz-grid" style="gap: 22px">
 <label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">Nombre y apellido</span><input class="rz-in" name="nombre" type="text" autocomplete="name" placeholder="Como figura en el DNI" value="{{o.nombre}}"></label>
 <label class="fz"><span class="rz-lab">DNI</span><input class="rz-in" name="dni" type="text" inputmode="numeric" maxlength="11" placeholder="Sin puntos" value="{{o.dni}}"></label>
-<label class="fz"><span class="rz-lab">Cantidad</span><select class="rz-in" name="cantidad" onChange="{{oQty}}" value="{{o.cantidad}}"><template data-for list="{{oCantidades}}" as="c"><option value="{{c.v}}">{{c.t}}</option></template></select></label>
+<div class="fz" style="justify-content: flex-end"><span class="rz-lab">Precio</span><span style="font-family: var(--serif); font-size: 34px; line-height: 1.3; color: var(--accent)">{{oPrecio}}</span><span class="rz-help">No incluye el envío.</span></div>
 <label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">Dirección</span><input class="rz-in" name="direccion" type="text" autocomplete="street-address" placeholder="Calle, número, piso y depto" value="{{o.direccion}}"></label>
 <label class="fz"><span class="rz-lab">Localidad</span><input class="rz-in" name="localidad" type="text" autocomplete="address-level2" placeholder="Ciudad o pueblo" value="{{o.localidad}}"></label>
 <label class="fz"><span class="rz-lab">Provincia</span><select class="rz-in" name="provincia" autocomplete="address-level1" value="{{o.provincia}}"><option value="">Elegí tu provincia</option><template data-for list="{{oProvincias}}" as="p"><option value="{{p}}">{{p}}</option></template></select></label>
 <label class="fz"><span class="rz-lab">Código postal</span><input class="rz-in" name="cp" type="text" autocomplete="postal-code" maxlength="8" placeholder="Ej: 5700" value="{{o.cp}}"></label>
-<div class="fz" style="justify-content: flex-end"><span class="rz-lab">Total a pagar</span><span style="font-family: var(--serif); font-size: 34px; line-height: 1.3; color: var(--accent)">{{oTotalTxt}}</span></div>
+<div class="fz" style="justify-content: flex-end"><span class="rz-help">¿Querés más de un oráculo? Hacé un pedido por cada uno o escribile a Yani.</span></div>
 </div>
 <template data-if value="{{oHasError}}" hint-placeholder-val="{{ false }}">
 <p role="alert" style="margin: 0; padding: 14px 18px; border-radius: var(--r); background: rgba(192,80,50,.12); border: 1.5px solid rgba(192,80,50,.45); color: var(--ink); font-size: 15px; line-height: 1.5">{{oError}}</p>
@@ -327,24 +327,16 @@ Terapia Ecuestre</a>
 <button class="olink" type="button" onClick="{{oEdit}}">Cambiar datos</button>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<span class="rz-lab">Transferí exactamente</span>
-<span style="font-family: var(--serif); font-size: clamp(40px, 5vw, 56px); line-height: 1.05; color: var(--accent)">{{oTotalTxt}}</span>
-<span class="rz-help">Podés pagar desde Mercado Pago o desde la app de cualquier banco.</span>
+<span class="rz-lab">Ingresá al link para pagar</span>
+<span style="font-family: var(--serif); font-size: clamp(40px, 5vw, 56px); line-height: 1.05; color: var(--accent)">{{oPrecio}}</span>
+<span class="rz-help">Con tarjeta de crédito, débito, dinero en Mercado Pago o en efectivo (Pago Fácil / Rapipago).</span>
 </div>
-<div class="opay">
-<div class="orow"><div style="min-width: 0"><small>Alias</small><strong>{{oAlias}}</strong></div><template data-if value="{{oHasAlias}}" hint-placeholder-val="{{ true }}"><button class="ocopy" type="button" onClick="{{oCopyAlias}}">{{oCopyAliasLabel}}</button></template></div>
-<div class="orow"><div style="min-width: 0"><small>CVU</small><strong>{{oCvu}}</strong></div><template data-if value="{{oHasCvu}}" hint-placeholder-val="{{ true }}"><button class="ocopy" type="button" onClick="{{oCopyCvu}}">{{oCopyCvuLabel}}</button></template></div>
-<div class="orow"><div style="min-width: 0"><small>A nombre de</small><strong>{{oTitular}}</strong></div></div>
-<div class="orow"><div style="min-width: 0"><small>Código de tu pedido</small><strong>{{o.code}}</strong></div><button class="ocopy" type="button" onClick="{{oCopyCode}}">{{oCopyCodeLabel}}</button></div>
-</div>
-<p class="rz-help" style="margin: 0">Si tu app te deja escribir un motivo o mensaje, poné el código del pedido.</p>
-<template data-if value="{{oHasMp}}" hint-placeholder-val="{{ false }}">
 <a class="rz-send" href="{{oMpLink}}" target="_blank" rel="noopener" style="align-self: flex-start; text-decoration: none; background: #009EE3">Pagar con Mercado Pago</a>
-</template>
+<p role="note" style="margin: 0; padding: 14px 18px; border-radius: var(--r); background: var(--soft); border: 1.5px solid var(--line); font-size: 15px; line-height: 1.55; color: var(--ink)"><strong>El pago no incluye el envío.</strong> El costo del envío lo coordinás con Yani por WhatsApp.</p>
 <div class="rz-grid" style="gap: 18px">
-<label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">¿A nombre de quién salió la transferencia?</span><input class="rz-in" name="pagador" type="text" placeholder="Nombre de la cuenta que pagó" value="{{o.pagador}}"><span class="rz-help">Así Yani encuentra tu pago más rápido. Si pagó otra persona, poné su nombre.</span></label>
+<label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">¿A nombre de quién salió el pago?</span><input class="rz-in" name="pagador" type="text" placeholder="Nombre de la cuenta que pagó" value="{{o.pagador}}"><span class="rz-help">Así Yani encuentra tu pago más rápido. Si pagó otra persona, poné su nombre.</span></label>
 </div>
-<label class="ocheck"><input type="checkbox" name="pagado"><span>Ya transferí <strong>{{oTotalTxt}}</strong></span></label>
+<label class="ocheck"><input type="checkbox" name="pagado"><span>Ya pagué <strong>{{oPrecio}}</strong> en Mercado Pago</span></label>
 <template data-if value="{{oHasError}}" hint-placeholder-val="{{ false }}">
 <p role="alert" style="margin: 0; padding: 14px 18px; border-radius: var(--r); background: rgba(192,80,50,.12); border: 1.5px solid rgba(192,80,50,.45); color: var(--ink); font-size: 15px; line-height: 1.5">{{oError}}</p>
 </template>
@@ -734,8 +726,8 @@ const TALLERES=[];
 const CONTACTOS={yani:{nombre:'Yani',numero:'5492664016300',tel:'+54 9 2664 01-6300'},mariana:{nombre:'Mariana',numero:'34623513822',tel:'+34 623 51 38 22'}};
 // Galería: las 5 fotos que se ven primero (id, encuadre)
 const FEATURED=[['855e6a4bb648555cf414404a3b002f60','50% 35%','Dos mujeres sonriendo junto a un caballo'],['37d608707b23ee31daaa0213b83ed067','50% 35%','Retrato de un caballo entre los árboles'],['613c817b24a3b8ea0323449468b12d0d','50% 30%','Yani sonriendo junto a un caballo blanco'],['e975a3defdf8181c9b41723d5c2f00b7','35% 30%','Mujer acariciando a un caballo que la busca con el hocico'],['410ee1980925ecbd8ef6e5bd22c00793','55% 50%','Mujer arrodillada junto a una yegua y su potrillo']];
-// Oráculo: completar alias, CVU y titular. mpLink = link de pago de Mercado Pago (opcional).
-const ORACULO={precio:80000, alias:'', cvu:'', titular:'Yanina Arroyo', mpLink:'', numero:'5492664016300'};
+// Oráculo: se paga con el link de Mercado Pago (un oráculo, $80.000, sin envío).
+const ORACULO={precio:80000, mpLink:'https://mpago.la/1uZdToH', numero:'5492664016300'};
 const PROVINCIAS=['Buenos Aires','CABA','Catamarca','Chaco','Chubut','Córdoba','Corrientes','Entre Ríos','Formosa','Jujuy','La Pampa','La Rioja','Mendoza','Misiones','Neuquén','Río Negro','Salta','San Juan','San Luis','Santa Cruz','Santa Fe','Santiago del Estero','Tierra del Fuego','Tucumán'];
 const O_KEY='almas-al-galope-pedido';
 const pesos=(n)=>'$ '+Number(n).toLocaleString('es-AR');
@@ -775,8 +767,7 @@ class Component extends DCLogic {
   }
   goPedido(){ setTimeout(()=>{ const el=document.getElementById('pedido'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); }
   oMessage(o){
-    const total=pesos(ORACULO.precio*(Number(o.cantidad)||1));
-    return ['Hola Yani! Soy '+o.nombre+' (DNI '+o.dni+').','Ya pagué '+(o.cantidad==='1'?'un oráculo':o.cantidad+' oráculos')+' Almas al Galope.','','Pedido: '+o.code,'Cantidad: '+o.cantidad,'Total transferido: '+total,'Transferencia a nombre de: '+o.pagador,'','Enviar a:','Nombre: '+o.nombre,'DNI: '+o.dni,'Dirección: '+o.direccion,'Localidad: '+o.localidad+', '+o.provincia,'Código postal: '+o.cp,'','Te mando el comprobante de la transferencia.'].join('\n');
+    return ['Hola Yani! Soy '+o.nombre+' (DNI '+o.dni+').','Ya pagué un oráculo Almas al Galope por Mercado Pago.','','Pedido: '+o.code,'Pagado: '+pesos(ORACULO.precio)+' (sin envío)','Pago a nombre de: '+o.pagador,'','Enviar a:','Nombre: '+o.nombre,'DNI: '+o.dni,'Dirección: '+o.direccion,'Localidad: '+o.localidad+', '+o.provincia,'Código postal: '+o.cp,'','Te mando el comprobante del pago. ¿Cuánto sale el envío?'].join('\n');
   }
   observer(){
     if(!this._io){
@@ -843,14 +834,8 @@ class Component extends DCLogic {
       oS1c: sc(1), oS2c: sc(2), oS3c: sc(3),
       oHasError: !!st.oError, oError: st.oError,
       oQty: (e)=>this.setState({oQty:Number(e.target.value)||1}),
-      oEnvioTxt: o.nombre+' (DNI '+o.dni+') · '+o.direccion+', '+o.localidad+', '+o.provincia+' · CP '+o.cp+' · '+o.cantidad+(o.cantidad==='1'?' oráculo':' oráculos'),
-      oAlias: ORACULO.alias||'Pendiente de cargar', oHasAlias: !!ORACULO.alias,
-      oCvu: ORACULO.cvu||'Pendiente de cargar', oHasCvu: !!ORACULO.cvu,
-      oTitular: ORACULO.titular||'Pendiente de cargar',
-      oHasMp: !!ORACULO.mpLink, oMpLink: ORACULO.mpLink,
-      oCopyAlias: ()=>this.copy(ORACULO.alias,'alias'), oCopyAliasLabel: st.oCopied==='alias'?'¡Copiado!':'Copiar',
-      oCopyCvu: ()=>this.copy(ORACULO.cvu,'cvu'), oCopyCvuLabel: st.oCopied==='cvu'?'¡Copiado!':'Copiar',
-      oCopyCode: ()=>this.copy(o.code,'code'), oCopyCodeLabel: st.oCopied==='code'?'¡Copiado!':'Copiar',
+      oEnvioTxt: o.nombre+' (DNI '+o.dni+') · '+o.direccion+', '+o.localidad+', '+o.provincia+' · CP '+o.cp+' · Pedido '+o.code,
+      oMpLink: ORACULO.mpLink,
       oCopyMsg: ()=>this.copy(st.oWaText,'msg'), oCopyMsgLabel: st.oCopied==='msg'?'¡Mensaje copiado!':'Copiar mensaje',
       oFirstName: (o.nombre||'').split(' ')[0],
       oWaText: st.oWaText, oWaUrl: st.oWaUrl,
@@ -875,8 +860,8 @@ class Component extends DCLogic {
         e.preventDefault();
         const form=(e.target&&e.target.closest)?e.target.closest('form'):null; if(!form) return;
         const fd=new FormData(form); const pagador=String(fd.get('pagador')||'').replace(/\s+/g,' ').trim();
-        if(!pagador){ this.setState({oError:'Escribí a nombre de quién salió la transferencia.'}); return; }
-        if(!fd.get('pagado')){ this.setState({oError:'Marcá la casilla “Ya transferí” cuando hayas hecho el pago.'}); return; }
+        if(!pagador){ this.setState({oError:'Escribí a nombre de quién salió el pago.'}); return; }
+        if(!fd.get('pagado')){ this.setState({oError:'Marcá la casilla “Ya pagué” cuando hayas hecho el pago.'}); return; }
         const no=Object.assign({},this.state.o,{pagador:pagador});
         const text=this.oMessage(no); const url='https://wa.me/'+ORACULO.numero+'?text='+encodeURIComponent(text);
         try{ window.open(url,'_blank','noopener'); }catch(err){}
