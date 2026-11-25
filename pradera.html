@@ -43,7 +43,37 @@ a{color:#3E5B3A}a:hover{color:#2B2A22}
 .lift:hover{transform:translateY(-8px);box-shadow:0 24px 48px -24px rgba(43,42,34,.45)}
 .btn{transition:transform .3s,background .3s,color .3s}
 .btn:hover{transform:translateY(-2px)}
-.reel::-webkit-scrollbar{height:8px}.reel::-webkit-scrollbar-thumb{background:#C9BFA9;border-radius:8px}
+.hs{text-shadow:0 2px 22px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.4)}
+.reel{scrollbar-width:none;cursor:grab;scroll-behavior:smooth;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none}
+.reel::-webkit-scrollbar{display:none}
+.reel.drag{cursor:grabbing;scroll-snap-type:none !important;scroll-behavior:auto}
+.reel.drag video{pointer-events:none}
+.rcard{flex:0 0 auto;width:clamp(200px,24vw,270px);aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#3A382D;scroll-snap-align:start;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.rcard:hover{transform:translateY(-6px)}
+.rbtn{width:54px;height:54px;flex:0 0 auto;border-radius:50%;border:1.5px solid rgba(246,241,231,.4);background:transparent;color:#F6F1E7;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s,color .3s,transform .3s}
+.rbtn:hover{background:#F6F1E7;color:#2B2A22;transform:scale(1.06)}
+.rtrack{position:relative;height:3px;border-radius:3px;background:rgba(246,241,231,.15);overflow:hidden}
+.rthumb{position:absolute;top:0;bottom:0;left:0;width:20%;border-radius:3px;background:#E3A57E;transition:left .15s linear}
+.gal{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px}
+.gal .ph{aspect-ratio:1/1;border-radius:22px;border:0;padding:0;margin:0;background:#E6DDCB;display:block;width:100%}
+.gal .ph:first-child{grid-row:span 2;aspect-ratio:auto}
+.gal .ph img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr}.gal .ph:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/5}}
+.oc{display:flex;flex-direction:column;gap:30px}
+.osteps{display:flex;gap:8px;flex-wrap:wrap}
+.ostep{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;background:var(--soft);color:var(--muted);font:600 13px var(--sans)}
+.ostep b{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--line);color:var(--ink);font-size:12px}
+.ostep.on{background:var(--accent);color:var(--onaccent)}.ostep.on b{background:var(--onaccent);color:var(--accent)}
+.ostep.ok b{background:var(--accent);color:var(--onaccent)}
+.opay{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}@media (max-width:640px){.opay{grid-template-columns:1fr}}
+.orow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--fieldbg);min-width:0}
+.orow small{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.orow strong{display:block;font-size:17px;color:var(--ink);word-break:break-all}
+.ocopy{flex:0 0 auto;background:var(--soft);color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font:600 13px var(--sans);cursor:pointer;transition:background .25s,border-color .25s}
+.ocopy:hover{border-color:var(--accent)}
+.ocheck{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--fieldbg);cursor:pointer;font-size:16px;line-height:1.5}
+.ocheck input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.olink{background:none;border:0;padding:0;color:var(--accent);font:600 15px var(--sans);text-decoration:underline;cursor:pointer}
 @media (max-width:760px){.navlinks{display:none !important}.split{flex-direction:column !important}}
 @media (prefers-reduced-motion: reduce){.kb,.fi1,.fi2,.fi3,.fi4,.rv,.mq,.floaty,.bar,.hint{animation:none !important}}
 .rz{--bg:#EFE7D6;--card:#FBF8F1;--soft:#F6F1E7;--ink:#2B2A22;--muted:#5A5745;--line:#D8CDB6;--fieldbg:#FFFFFF;--accent:#3E5B3A;--accent2:#B5653A;--onaccent:#FBF8F1;--ring:rgba(62,91,58,.18);--coat:#A4643C;--mane:#4A2E1E;--coat2:#D9CFC1;--mane2:#7C6E60;--blaze:#F7EFE2;--dark:#2A1C14;--wood:#B88A5A;--wood2:#8E6640;--serif:Fraunces,serif;--sans:Inter,system-ui,sans-serif;--hw:300;--r:16px;--cr:32px;--br:999px;--eyels:.24em;--btnls:0;--btntt:none;--scheme:light}
@@ -104,8 +134,9 @@ a{color:#3E5B3A}a:hover{color:#2B2A22}
 
 <header style="position: relative; height: 100vh; min-height: 640px; max-height: 980px; overflow: hidden; color: #FBF8F1">
 <img class="kb" src="media/8a45de175418c5835052a5f5331c5c09.jpg" alt="Mujer acariciando a un caballo entre una manada al atardecer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
-<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25,22,15,.55) 0%, rgba(25,22,15,.1) 35%, rgba(25,22,15,.65) 100%)"></div>
-<nav style="position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 28px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,12,.62) 0%, rgba(20,18,12,.18) 26%, rgba(20,18,12,.32) 50%, rgba(20,18,12,.86) 100%)"></div>
+<div style="position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 18% 82%, rgba(20,18,12,.55) 0%, rgba(20,18,12,0) 70%)"></div>
+<nav class="hs" style="position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 28px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
 <a href="#inicio" style="color: #FBF8F1; text-decoration: none; display: flex; align-items: center; gap: 10px; font-family: Fraunces, serif; font-size: 24px; letter-spacing: .02em">
 <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 27c0-6 2-9 5-11l-3-5c3-1 6 0 8 2l4-5 1 6c2 2 3 5 2 8"></path><path d="M14 16c3 1 6 0 8-2"></path><circle cx="21" cy="11" r=".6"></circle></svg>
 Terapia Ecuestre</a>
@@ -119,7 +150,7 @@ Terapia Ecuestre</a>
 </div>
 <a class="btn" href="#reservas" style="background: #FBF8F1; color: #2B2A22; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 15px">Reservar</a>
 </nav>
-<div id="inicio" style="position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 0 24px; height: calc(100% - 220px); display: flex; flex-direction: column; justify-content: flex-end; gap: 22px">
+<div id="inicio" class="hs" style="position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 0 24px; height: calc(100% - 220px); display: flex; flex-direction: column; justify-content: flex-end; gap: 22px">
 <p class="fi1" style="margin: 0; text-transform: uppercase; letter-spacing: .28em; font-size: 13px; font-weight: 600; color: #F1DFC0">Terapia ecuestre · Encuentros en la naturaleza</p>
 <h1 class="fi2" style="margin: 0; font-family: Fraunces, serif; font-weight: 300; font-size: clamp(44px, 7.4vw, 104px); line-height: .98; letter-spacing: -.02em; max-width: 900px">Volver a sentir, <em style="font-style: italic; color: #F1DFC0">al ritmo</em> del caballo</h1>
 <p class="fi3" style="margin: 0; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.6; max-width: 560px; color: #EFE8DA">Un espacio de encuentro entre personas y caballos, en pleno campo, para reconectar con el cuerpo, las emociones y la calma.</p>
@@ -146,7 +177,7 @@ Terapia Ecuestre</a>
 <img src="media/4e8ab2ff1e8ebe36b9f5a2f2672648e5.jpg" alt="Mujer caminando junto a un caballo al atardecer" style="width: 100%; height: 100%; object-fit: cover; display: block">
 </div>
 <div class="ph floaty" style="position: absolute; right: 0; bottom: 0; width: 46%; height: 50%; border-radius: 24px; border: 8px solid #F6F1E7; box-shadow: 0 30px 60px -30px rgba(43,42,34,.5)">
-<img src="media/d512d1a1351630cb7bfa713826fa1376.jpg" alt="Mujer abrazando la cabeza de un caballo" style="width: 100%; height: 100%; object-fit: cover; display: block">
+<img src="media/d512d1a1351630cb7bfa713826fa1376.jpg" alt="Mujer abrazando la cabeza de un caballo" style="width: 100%; height: 100%; object-fit: cover; object-position: 85% 40%; display: block">
 </div>
 </div>
 <div class="rv" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 24px">
@@ -176,11 +207,11 @@ Terapia Ecuestre</a>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px">
 <article class="rv lift" style="background: #F6F1E7; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
-<div class="ph" style="height: 260px"><img src="media/b4f042fe66a069c1e59548069e4cd10a.jpg" alt="Rostro de una mujer junto al ojo de un caballo" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div class="ph" style="height: 260px"><img src="media/a333fb3c73b15cbc280d898306fb9f97.jpg" alt="Hombre apoyando su frente en la de un caballo" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block"></div>
 <div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: Fraunces, serif; font-weight: 500; font-size: 26px">Vínculo</h3><p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5A5745">El caballo como compañero y espejo de lo que sentimos.</p></div>
 </article>
 <article class="rv lift" style="background: #F6F1E7; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
-<div class="ph" style="height: 260px"><img src="media/34edef7a0ef449abc478b7f01d52048a.jpg" alt="Mujer abrazada a sí misma entre caballos" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div class="ph" style="height: 260px"><img src="media/34edef7a0ef449abc478b7f01d52048a.jpg" alt="Mujer abrazada a sí misma entre caballos" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block"></div>
 <div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: Fraunces, serif; font-weight: 500; font-size: 26px">Presencia</h3><p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5A5745">Estar acá y ahora, escuchando al cuerpo.</p></div>
 </article>
 <article class="rv lift" style="background: #F6F1E7; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column">
@@ -202,7 +233,7 @@ Terapia Ecuestre</a>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px">
 <article class="rv lift" style="position: relative; height: 480px; border-radius: 32px; overflow: hidden; color: #FBF8F1">
-<img src="media/f05e1f8bc86436cffaca4c26325c4de1.jpg" alt="Mujer arrodillada junto a una yegua y su potrillo" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+<img src="media/f05e1f8bc86436cffaca4c26325c4de1.jpg" alt="Mujer arrodillada junto a una yegua y su potrillo" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 50%">
 <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25,22,15,0) 40%, rgba(25,22,15,.82) 100%)"></div>
 <div style="position: absolute; left: 28px; right: 28px; bottom: 28px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: #F1DFC0">01</span><h3 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 32px">Sanación con caballos</h3><p style="margin: 0; font-size: 15px; line-height: 1.6; color: #EFE8DA">Encuentros con los caballos para escucharte, observarte y volver al presente.</p></div>
 </article>
@@ -212,7 +243,7 @@ Terapia Ecuestre</a>
 <div style="position: absolute; left: 28px; right: 28px; bottom: 28px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: #F1DFC0">02</span><h3 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 32px">Talleres y círculos</h3><p style="margin: 0; font-size: 15px; line-height: 1.6; color: #EFE8DA">Encuentros grupales con caballos, cuencos, reiki y círculo femenino.</p></div>
 </article>
 <article class="rv lift" style="position: relative; height: 480px; border-radius: 32px; overflow: hidden; color: #FBF8F1">
-<img src="media/809a50d09cf0ee3209512c36bd3267de.jpg" alt="Dos personas apoyando las manos sobre un caballo" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+<img src="media/dde8ee5b6719a6b95a8600ae8120b8ad.jpg" alt="Mujer sentada junto a un caballo frente a un lago" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%">
 <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25,22,15,0) 40%, rgba(25,22,15,.82) 100%)"></div>
 <div style="position: absolute; left: 28px; right: 28px; bottom: 28px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: #F1DFC0">03</span><h3 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 32px">Retiros y viajes</h3><p style="margin: 0; font-size: 15px; line-height: 1.6; color: #EFE8DA">Experiencias para salir de la rutina y conectar con lo sagrado.</p></div>
 </article>
@@ -221,7 +252,7 @@ Terapia Ecuestre</a>
 
 <section id="yani" style="background: #EFE7D6; padding: 110px 0">
 <div class="split" style="max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; gap: 72px; align-items: center">
-<div class="rv ph" style="flex: 0 0 auto; width: min(420px, 100%); aspect-ratio: 4 / 5; border-radius: 28px 28px 220px 28px"><img src="media/70e32e9f3a045a87054c36da1c84ee68.jpg" alt="Yanina Arroyo junto a un caballo" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div class="rv ph" style="flex: 0 0 auto; width: min(420px, 100%); aspect-ratio: 4 / 5; border-radius: 28px"><img src="media/70e32e9f3a045a87054c36da1c84ee68.jpg" alt="Yanina Arroyo junto a un caballo" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; display: block"></div>
 <div class="rv" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 22px">
 <p style="margin: 0; text-transform: uppercase; letter-spacing: .24em; font-size: 13px; font-weight: 600; color: #B5653A">Quién te acompaña</p>
 <h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 300; font-size: clamp(36px, 4.4vw, 58px); line-height: 1.05">Hola, soy <em style="color: #3E5B3A">Yani</em></h2>
@@ -239,40 +270,132 @@ Terapia Ecuestre</a>
 <h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 300; font-size: clamp(36px, 4.6vw, 64px); line-height: 1.02">Almas <em style="color: #B5653A">al Galope</em></h2>
 <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A4838">Un oráculo inspirado en la sabiduría de los caballos, creado por Yanina Arroyo desde su conexión profunda con ellos.</p>
 <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A4838">Cada carta es un mensaje que guía, ordena y te invita a escucharte más profundo.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px">
-<a class="btn" href="https://wa.me/5492664016300?text=Hola%20Yani%2C%20quiero%20saber%20m%C3%A1s%20sobre%20el%20or%C3%A1culo%20Almas%20al%20Galope" target="_blank" rel="noopener" style="background: #B5653A; color: #FFFFFF; text-decoration: none; padding: 16px 28px; border-radius: 999px; font-weight: 600">Quiero mi oráculo</a>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center; padding-top: 6px">
+<a class="btn" href="#pedido" style="background: #B5653A; color: #FFFFFF; text-decoration: none; padding: 16px 28px; border-radius: 999px; font-weight: 600">Quiero mi oráculo</a>
+<span style="font-family: Fraunces, serif; font-size: 30px; color: #2B2A22">{{oPrecio}}</span>
+</div>
+<p style="margin: 0; font-size: 14px; color: #6B6754">Te lo enviamos a tu casa. Completás tus datos, transferís y le avisás a Yani por WhatsApp.</p>
+</div>
+<div class="rv" style="flex: 0 0 auto; width: min(400px, 100%); aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: #EFE7D6">
+<img src="media/21b2e80ec68e1c485ead5fde829994a5.jpg" alt="Caja del oráculo Almas al Galope con dos cartas" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block">
 </div>
 </div>
-<div class="rv" style="flex: 0 0 auto; width: min(340px, 100%); aspect-ratio: 9 / 16; border-radius: 200px 200px 28px 28px; overflow: hidden; background: #EFE7D6">
-<video ref="{{autoRef}}" src="media/6d002b116e296e3057997b0940c21362.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px">
+<div class="rv lift" style="aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: #EFE7D6"><video ref="{{autoRef}}" src="media/6d002b116e296e3057997b0940c21362.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video></div>
+<div class="rv lift" style="aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: #EFE7D6"><img src="media/ad1890f33add9824e853432c8f5a88e4.jpg" alt="Caja del oráculo Almas al Galope sobre una mesa de madera" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div class="rv lift" style="aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: #EFE7D6"><video ref="{{autoRef}}" src="media/a543e7dd80b06c0de0b3e8598d4437a3.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video></div>
+</div>
+
+<div id="pedido" class="rz rz-card rv" style="scroll-margin-top: 24px; font-family: var(--sans); color: var(--ink)">
+<div class="oc">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h3 style="margin: 0; font-family: var(--serif); font-weight: var(--hw); font-size: clamp(28px, 3vw, 40px); line-height: 1.1">Pedí tu oráculo</h3>
+<div class="osteps">
+<span class="{{oS1c}}"><b>1</b>Datos de envío</span>
+<span class="{{oS2c}}"><b>2</b>Pago</span>
+<span class="{{oS3c}}"><b>3</b>Avisar a Yani</span>
 </div>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<div class="rv lift" style="aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #EFE7D6"><video ref="{{autoRef}}" src="media/0eeabb28a543471f9c0e0a5b45b1269f.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video></div>
-<div class="rv lift" style="aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #EFE7D6"><video ref="{{autoRef}}" src="media/9cab8cd586ded3c7553bc7e4f7def792.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video></div>
-<div class="rv lift" style="aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #EFE7D6"><video ref="{{autoRef}}" src="media/1ae7f7c7a99744d63f80ab34737728ec.mp4" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video></div>
+
+<template data-if value="{{oIs1}}" hint-placeholder-val="{{ true }}">
+<form onSubmit="{{oSubmit}}" novalidate class="oc">
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted)">Completá a dónde te lo mandamos. Los datos tienen que ser de quien lo recibe.</p>
+<div class="rz-grid" style="gap: 22px">
+<label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">Nombre y apellido</span><input class="rz-in" name="nombre" type="text" autocomplete="name" placeholder="Como figura en el DNI" value="{{o.nombre}}"></label>
+<label class="fz"><span class="rz-lab">DNI</span><input class="rz-in" name="dni" type="text" inputmode="numeric" maxlength="11" placeholder="Sin puntos" value="{{o.dni}}"></label>
+<label class="fz"><span class="rz-lab">Cantidad</span><select class="rz-in" name="cantidad" onChange="{{oQty}}" value="{{o.cantidad}}"><template data-for list="{{oCantidades}}" as="c"><option value="{{c.v}}">{{c.t}}</option></template></select></label>
+<label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">Dirección</span><input class="rz-in" name="direccion" type="text" autocomplete="street-address" placeholder="Calle, número, piso y depto" value="{{o.direccion}}"></label>
+<label class="fz"><span class="rz-lab">Localidad</span><input class="rz-in" name="localidad" type="text" autocomplete="address-level2" placeholder="Ciudad o pueblo" value="{{o.localidad}}"></label>
+<label class="fz"><span class="rz-lab">Provincia</span><select class="rz-in" name="provincia" autocomplete="address-level1" value="{{o.provincia}}"><option value="">Elegí tu provincia</option><template data-for list="{{oProvincias}}" as="p"><option value="{{p}}">{{p}}</option></template></select></label>
+<label class="fz"><span class="rz-lab">Código postal</span><input class="rz-in" name="cp" type="text" autocomplete="postal-code" maxlength="8" placeholder="Ej: 5700" value="{{o.cp}}"></label>
+<div class="fz" style="justify-content: flex-end"><span class="rz-lab">Total a pagar</span><span style="font-family: var(--serif); font-size: 34px; line-height: 1.3; color: var(--accent)">{{oTotalTxt}}</span></div>
+</div>
+<template data-if value="{{oHasError}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; padding: 14px 18px; border-radius: var(--r); background: rgba(192,80,50,.12); border: 1.5px solid rgba(192,80,50,.45); color: var(--ink); font-size: 15px; line-height: 1.5">{{oError}}</p>
+</template>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); max-width: 420px">Usamos estos datos solo para hacerte el envío.</p>
+<button class="rz-send" type="button" onClick="{{oSubmit}}">Seguir al pago</button>
+</div>
+</form>
+</template>
+
+<template data-if value="{{oIs2}}" hint-placeholder-val="{{ false }}">
+<form onSubmit="{{oPaid}}" novalidate class="oc">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: baseline; justify-content: space-between; padding: 18px 20px; border-radius: var(--r); background: var(--soft)">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span class="rz-help">Envío a</span><strong style="font-size: 16px; line-height: 1.5">{{oEnvioTxt}}</strong></div>
+<button class="olink" type="button" onClick="{{oEdit}}">Cambiar datos</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span class="rz-lab">Transferí exactamente</span>
+<span style="font-family: var(--serif); font-size: clamp(40px, 5vw, 56px); line-height: 1.05; color: var(--accent)">{{oTotalTxt}}</span>
+<span class="rz-help">Podés pagar desde Mercado Pago o desde la app de cualquier banco.</span>
+</div>
+<div class="opay">
+<div class="orow"><div style="min-width: 0"><small>Alias</small><strong>{{oAlias}}</strong></div><template data-if value="{{oHasAlias}}" hint-placeholder-val="{{ true }}"><button class="ocopy" type="button" onClick="{{oCopyAlias}}">{{oCopyAliasLabel}}</button></template></div>
+<div class="orow"><div style="min-width: 0"><small>CVU</small><strong>{{oCvu}}</strong></div><template data-if value="{{oHasCvu}}" hint-placeholder-val="{{ true }}"><button class="ocopy" type="button" onClick="{{oCopyCvu}}">{{oCopyCvuLabel}}</button></template></div>
+<div class="orow"><div style="min-width: 0"><small>A nombre de</small><strong>{{oTitular}}</strong></div></div>
+<div class="orow"><div style="min-width: 0"><small>Código de tu pedido</small><strong>{{o.code}}</strong></div><button class="ocopy" type="button" onClick="{{oCopyCode}}">{{oCopyCodeLabel}}</button></div>
+</div>
+<p class="rz-help" style="margin: 0">Si tu app te deja escribir un motivo o mensaje, poné el código del pedido.</p>
+<template data-if value="{{oHasMp}}" hint-placeholder-val="{{ false }}">
+<a class="rz-send" href="{{oMpLink}}" target="_blank" rel="noopener" style="align-self: flex-start; text-decoration: none; background: #009EE3">Pagar con Mercado Pago</a>
+</template>
+<div class="rz-grid" style="gap: 18px">
+<label class="fz" style="grid-column: 1 / -1"><span class="rz-lab">¿A nombre de quién salió la transferencia?</span><input class="rz-in" name="pagador" type="text" placeholder="Nombre de la cuenta que pagó" value="{{o.pagador}}"><span class="rz-help">Así Yani encuentra tu pago más rápido. Si pagó otra persona, poné su nombre.</span></label>
+</div>
+<label class="ocheck"><input type="checkbox" name="pagado"><span>Ya transferí <strong>{{oTotalTxt}}</strong></span></label>
+<template data-if value="{{oHasError}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; padding: 14px 18px; border-radius: var(--r); background: rgba(192,80,50,.12); border: 1.5px solid rgba(192,80,50,.45); color: var(--ink); font-size: 15px; line-height: 1.5">{{oError}}</p>
+</template>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); max-width: 420px">Al tocar el botón se abre el chat con Yani con tu pedido ya escrito.</p>
+<button class="rz-send" type="button" onClick="{{oPaid}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6z"></path></svg>Ya pagué · Avisar a Yani</button>
+</div>
+</form>
+</template>
+
+<template data-if value="{{oIs3}}" hint-placeholder-val="{{ false }}">
+<div class="oc" style="align-items: center; text-align: center">
+<h4 style="margin: 0; font-family: var(--serif); font-weight: var(--hw); font-size: clamp(28px, 3vw, 40px); line-height: 1.1">¡Gracias, {{oFirstName}}!</h4>
+<p style="margin: 0; max-width: 540px; font-size: 17px; line-height: 1.7; color: var(--muted)">Mandale el mensaje a Yani por WhatsApp y <strong style="color: var(--ink)">adjuntá la captura del comprobante</strong>. Con eso confirma tu pago y te despacha el oráculo.</p>
+<div style="width: 100%; max-width: 560px; box-sizing: border-box; text-align: left; background: var(--soft); border: 1.5px dashed var(--line); border-radius: var(--r); padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">Si WhatsApp no se abre, copiá este mensaje y mandáselo a Yani al <strong style="color: var(--ink)">+54 9 2664 01-6300</strong>:</p>
+<pre style="margin: 0; white-space: pre-wrap; word-break: break-word; font: 14px/1.6 var(--sans); color: var(--ink)">{{oWaText}}</pre>
+<button class="ocopy" type="button" onClick="{{oCopyMsg}}" style="align-self: flex-start">{{oCopyMsgLabel}}</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center">
+<a class="rz-send" href="{{oWaUrl}}" target="_blank" rel="noopener" style="text-decoration: none">Abrir WhatsApp</a>
+<button type="button" onClick="{{oReset}}" style="background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: var(--br); padding: 16px 26px; font: 600 15px var(--sans); cursor: pointer">Hacer otro pedido</button>
+</div>
+</div>
+</template>
+</div>
 </div>
 </section>
 
 <section id="videos" style="background: #2B2A22; color: #F6F1E7; padding: 110px 0 120px">
 <div style="max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 48px">
-<div class="split" style="display: flex; gap: 64px; align-items: center">
-<div class="rv" style="flex: 0 0 auto; width: min(380px, 100%); aspect-ratio: 9 / 16; border-radius: 200px 200px 28px 28px; overflow: hidden; background: #3A382D">
-<video ref="{{heroVideoRef}}" src="media/8fd1339d37dbb454e95234738f46e093.mp4" autoPlay muted loop playsInline style="width: 100%; height: 100%; object-fit: cover; display: block"></video>
-</div>
-<div class="rv" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 640px">
 <p style="margin: 0; text-transform: uppercase; letter-spacing: .24em; font-size: 13px; font-weight: 600; color: #E3A57E">Videos</p>
 <h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 300; font-size: clamp(36px, 4.6vw, 64px); line-height: 1.02">Momentos reales, <em style="color: #F1DFC0">en el campo</em></h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.7; color: #CFC7B4; max-width: 520px">Encuentros, talleres y la vida cotidiana con los caballos. Deslizá para ver todos: se reproducen solos y sin sonido.</p>
-<p style="margin: 0; font-size: 14px; color: #A59D88">{{videoCount}} videos</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.7; color: #CFC7B4">Encuentros, talleres y la vida cotidiana con los caballos. Deslizá hacia el costado para ver los {{videoCount}} videos.</p>
+</div>
+<div style="display: flex; gap: 12px">
+<button class="rbtn" type="button" onClick="{{reelPrev}}" aria-label="Videos anteriores"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+<button class="rbtn" type="button" onClick="{{reelNext}}" aria-label="Videos siguientes"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
 </div>
 </div>
-<div class="reel" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 16px">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div class="reel" ref="{{reelRef}}" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 0">
 <template data-for list="{{videos}}" as="v" hint-placeholder-count="6">
-<div style="flex: 0 0 auto; width: 220px; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #3A382D; scroll-snap-align: start">
-<video ref="{{autoRef}}" src="{{v.src}}" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video>
+<div class="rcard">
+<video ref="{{autoRef}}" src="{{v.src}}" muted loop playsInline preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none"></video>
 </div>
 </template>
+</div>
+<div class="rtrack" aria-hidden="true"><span class="rthumb" ref="{{reelThumbRef}}"></span></div>
 </div>
 </div>
 </section>
@@ -283,18 +406,25 @@ Terapia Ecuestre</a>
 <p style="margin: 0; text-transform: uppercase; letter-spacing: .24em; font-size: 13px; font-weight: 600; color: #B5653A">Galería</p>
 <h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 300; font-size: clamp(34px, 4vw, 52px); line-height: 1.05">Postales de los encuentros</h2>
 </div>
-<p style="margin: 0; font-size: 15px; color: #6B6754">Tocá una foto para verla grande · {{photoCount}} fotos</p>
+<p style="margin: 0; font-size: 15px; color: #6B6754">Tocá una foto para verla grande</p>
 </div>
-<div style="columns: 4 240px; column-gap: 16px">
-<template data-for list="{{shownPhotos}}" as="p" hint-placeholder-count="12">
+<div class="gal">
+<template data-for list="{{featured}}" as="p" hint-placeholder-count="5">
+<button class="ph" type="button" onClick="{{p.open}}" aria-label="Ver foto en grande">
+<img src="{{p.src}}" alt="{{p.alt}}" loading="lazy" style="{{p.style}}">
+</button>
+</template>
+</div>
+<template data-if value="{{showAll}}" hint-placeholder-val="{{ false }}">
+<div style="columns: 4 220px; column-gap: 16px">
+<template data-for list="{{restPhotos}}" as="p" hint-placeholder-count="12">
 <button class="ph" type="button" onClick="{{p.open}}" aria-label="Ver foto en grande" style="display: block; width: 100%; padding: 0; margin: 0 0 16px; border: 0; border-radius: 18px; background: #E6DDCB; break-inside: avoid">
 <img src="{{p.src}}" alt="Foto de un encuentro de terapia ecuestre" loading="lazy" style="width: 100%; display: block">
 </button>
 </template>
 </div>
-<template data-if value="{{hasMore}}" hint-placeholder-val="{{ true }}">
-<button class="btn" type="button" onClick="{{toggleAll}}" style="align-self: center; background: #3E5B3A; color: #FBF8F1; border: 0; padding: 16px 32px; border-radius: 999px; font: 600 16px Inter, sans-serif; cursor: pointer">{{moreLabel}}</button>
 </template>
+<button class="btn" type="button" onClick="{{toggleAll}}" style="align-self: center; background: #3E5B3A; color: #FBF8F1; border: 0; padding: 16px 32px; border-radius: 999px; font: 600 16px Inter, sans-serif; cursor: pointer; display: flex; align-items: center; gap: 10px">{{moreLabel}}</button>
 </section>
 
 <section id="reservas" class="rz" style="background: var(--bg); color: var(--ink); padding: 130px 24px 140px; font-family: var(--sans)">
@@ -602,13 +732,51 @@ const VIDEO_IDS=['8fd1339d37dbb454e95234738f46e093','8163d17716f87372988e02529a6
 // Talleres: agregar uno por objeto. Ej: {titulo:'Taller de sanación con caballos', fecha:'Sábado 14 de marzo', horario:'10 a 13 h', lugar:'Campo ...', precio:'$ ...'}
 const TALLERES=[];
 const CONTACTOS={yani:{nombre:'Yani',numero:'5492664016300',tel:'+54 9 2664 01-6300'},mariana:{nombre:'Mariana',numero:'34623513822',tel:'+34 623 51 38 22'}};
-const FIRST_SHOWN=24;
+// Galería: las 5 fotos que se ven primero (id, encuadre)
+const FEATURED=[['855e6a4bb648555cf414404a3b002f60','50% 35%','Dos mujeres sonriendo junto a un caballo'],['37d608707b23ee31daaa0213b83ed067','50% 35%','Retrato de un caballo entre los árboles'],['613c817b24a3b8ea0323449468b12d0d','50% 30%','Yani sonriendo junto a un caballo blanco'],['e975a3defdf8181c9b41723d5c2f00b7','35% 30%','Mujer acariciando a un caballo que la busca con el hocico'],['410ee1980925ecbd8ef6e5bd22c00793','55% 50%','Mujer arrodillada junto a una yegua y su potrillo']];
+// Oráculo: completar alias, CVU y titular. mpLink = link de pago de Mercado Pago (opcional).
+const ORACULO={precio:80000, alias:'', cvu:'', titular:'Yanina Arroyo', mpLink:'', numero:'5492664016300'};
+const PROVINCIAS=['Buenos Aires','CABA','Catamarca','Chaco','Chubut','Córdoba','Corrientes','Entre Ríos','Formosa','Jujuy','La Pampa','La Rioja','Mendoza','Misiones','Neuquén','Río Negro','Salta','San Juan','San Luis','Santa Cruz','Santa Fe','Santiago del Estero','Tierra del Fuego','Tucumán'];
+const O_KEY='almas-al-galope-pedido';
+const pesos=(n)=>'$ '+Number(n).toLocaleString('es-AR');
+const O_EMPTY={nombre:'',dni:'',cantidad:'1',direccion:'',localidad:'',provincia:'',cp:'',pagador:'',code:''};
 class Component extends DCLogic {
   constructor(props){
     super(props);
-    this.state={playing:false,showAll:false,lightbox:null,sent:false,sentName:'',waUrl:''};
+    this.state={playing:false,showAll:false,lightbox:null,sent:false,sentName:'',waUrl:'',oStep:1,o:Object.assign({},O_EMPTY),oQty:1,oError:'',oCopied:'',oWaUrl:'',oWaText:''};
     this.heroVideoRef=(el)=>{ if(el){ el.muted=true; el.defaultMuted=true; const p=el.play(); if(p&&p.catch) p.catch(()=>{}); } };
     this.autoRef=(el)=>{ if(!el) return; el.muted=true; el.defaultMuted=true; this.observer().observe(el); };
+    this.reelThumbRef=(el)=>{ this._thumb=el; this.updReel(); };
+    this.reelRef=(el)=>{
+      if(!el||el===this._reel) return; this._reel=el;
+      let down=false,sx=0,sl=0,moved=false;
+      el.addEventListener('pointerdown',(e)=>{ if(e.pointerType!=='mouse'||e.button!==0) return; down=true; moved=false; sx=e.clientX; sl=el.scrollLeft; });
+      window.addEventListener('pointermove',(e)=>{ if(!down) return; const dx=e.clientX-sx; if(!moved&&Math.abs(dx)>5){ moved=true; el.classList.add('drag'); } if(moved) el.scrollLeft=sl-dx; });
+      window.addEventListener('pointerup',()=>{ if(!down) return; down=false; if(moved){ el.classList.remove('drag'); } });
+      el.addEventListener('scroll',()=>this.updReel(),{passive:true});
+      window.addEventListener('resize',()=>this.updReel());
+      this.updReel();
+    };
+  }
+  updReel(){
+    const el=this._reel, th=this._thumb; if(!el||!th) return;
+    const max=el.scrollWidth-el.clientWidth; const w=el.scrollWidth?Math.max(8,el.clientWidth/el.scrollWidth*100):100;
+    th.style.width=w+'%'; th.style.left=(max>0?el.scrollLeft/max*(100-w):0)+'%';
+  }
+  reelGo(dir){ const el=this._reel; if(!el) return; el.scrollBy({left:dir*Math.max(240,el.clientWidth*0.8),behavior:'smooth'}); }
+  componentDidMount(){
+    try{ const s=JSON.parse(localStorage.getItem(O_KEY)||'null'); if(s&&s.o&&s.oStep>1){ this.setState({oStep:s.oStep,o:Object.assign({},O_EMPTY,s.o),oQty:Number(s.o.cantidad)||1,oWaUrl:s.oWaUrl||'',oWaText:s.oWaText||''}); } }catch(e){}
+  }
+  oSave(st){ try{ if(st) localStorage.setItem(O_KEY,JSON.stringify(st)); else localStorage.removeItem(O_KEY); }catch(e){} }
+  copy(txt,key){
+    const done=()=>{ this.setState({oCopied:key}); clearTimeout(this._ct); this._ct=setTimeout(()=>this.setState({oCopied:''}),2500); };
+    const fallback=()=>{ try{ const ta=document.createElement('textarea'); ta.value=txt; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }catch(err){} };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(fallback); } else { fallback(); }
+  }
+  goPedido(){ setTimeout(()=>{ const el=document.getElementById('pedido'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); }
+  oMessage(o){
+    const total=pesos(ORACULO.precio*(Number(o.cantidad)||1));
+    return ['Hola Yani! Soy '+o.nombre+' (DNI '+o.dni+').','Ya pagué '+(o.cantidad==='1'?'un oráculo':o.cantidad+' oráculos')+' Almas al Galope.','','Pedido: '+o.code,'Cantidad: '+o.cantidad,'Total transferido: '+total,'Transferencia a nombre de: '+o.pagador,'','Enviar a:','Nombre: '+o.nombre,'DNI: '+o.dni,'Dirección: '+o.direccion,'Localidad: '+o.localidad+', '+o.provincia,'Código postal: '+o.cp,'','Te mando el comprobante de la transferencia.'].join('\n');
   }
   observer(){
     if(!this._io){
@@ -648,16 +816,74 @@ class Component extends DCLogic {
   }
   renderVals(){
     const playing=this.state.playing;
-    const all=PHOTO_IDS.map((id)=>({ src:'media/'+id+'.jpg', open:()=>this.setState({lightbox:'media/'+id+'.jpg'}) }));
-    const shown=this.state.showAll?all:all.slice(0,FIRST_SHOWN);
+    const featIds=FEATURED.map((f)=>f[0]);
+    const featured=FEATURED.map(([id,pos,alt])=>({ src:'media/'+id+'.jpg', alt:alt, style:'width:100%;height:100%;object-fit:cover;display:block;object-position:'+pos, open:()=>this.setState({lightbox:'media/'+id+'.jpg'}) }));
+    const rest=PHOTO_IDS.filter((id)=>featIds.indexOf(id)<0).map((id)=>({ src:'media/'+id+'.jpg', open:()=>this.setState({lightbox:'media/'+id+'.jpg'}) }));
+    const st=this.state, o=st.o, qty=st.oQty||1, step=st.oStep;
+    const sc=(n)=>'ostep'+(step===n?' on':(step>n?' ok':''));
+    const setO=(patch,extra)=>{ const no=Object.assign({},this.state.o,patch); this.setState(Object.assign({o:no},extra||{})); return no; };
     return {
       videos: VIDEO_IDS.map((id)=>({ src:'media/'+id+'.mp4#t=0.1' })),
       videoCount: VIDEO_IDS.length,
-      photoCount: PHOTO_IDS.length,
-      shownPhotos: shown,
-      hasMore: all.length>FIRST_SHOWN,
-      moreLabel: this.state.showAll?'Mostrar menos':'Ver las '+all.length+' fotos',
-      toggleAll: ()=>this.setState({showAll:!this.state.showAll}),
+      reelRef: this.reelRef,
+      reelThumbRef: this.reelThumbRef,
+      reelPrev: ()=>this.reelGo(-1),
+      reelNext: ()=>this.reelGo(1),
+      featured: featured,
+      restPhotos: rest,
+      showAll: st.showAll,
+      moreLabel: st.showAll?'Ocultar fotos':'Ver todas las fotos ('+PHOTO_IDS.length+')',
+      toggleAll: ()=>{ const was=this.state.showAll; this.setState({showAll:!was}); if(was){ const g=document.getElementById('galeria'); if(g) g.scrollIntoView({behavior:'smooth'}); } },
+      o: o,
+      oPrecio: pesos(ORACULO.precio),
+      oTotalTxt: pesos(ORACULO.precio*qty),
+      oCantidades: [1,2,3,4,5].map((n)=>({v:String(n),t:n===1?'1 oráculo':n+' oráculos'})),
+      oProvincias: PROVINCIAS,
+      oIs1: step===1, oIs2: step===2, oIs3: step===3,
+      oS1c: sc(1), oS2c: sc(2), oS3c: sc(3),
+      oHasError: !!st.oError, oError: st.oError,
+      oQty: (e)=>this.setState({oQty:Number(e.target.value)||1}),
+      oEnvioTxt: o.nombre+' (DNI '+o.dni+') · '+o.direccion+', '+o.localidad+', '+o.provincia+' · CP '+o.cp+' · '+o.cantidad+(o.cantidad==='1'?' oráculo':' oráculos'),
+      oAlias: ORACULO.alias||'Pendiente de cargar', oHasAlias: !!ORACULO.alias,
+      oCvu: ORACULO.cvu||'Pendiente de cargar', oHasCvu: !!ORACULO.cvu,
+      oTitular: ORACULO.titular||'Pendiente de cargar',
+      oHasMp: !!ORACULO.mpLink, oMpLink: ORACULO.mpLink,
+      oCopyAlias: ()=>this.copy(ORACULO.alias,'alias'), oCopyAliasLabel: st.oCopied==='alias'?'¡Copiado!':'Copiar',
+      oCopyCvu: ()=>this.copy(ORACULO.cvu,'cvu'), oCopyCvuLabel: st.oCopied==='cvu'?'¡Copiado!':'Copiar',
+      oCopyCode: ()=>this.copy(o.code,'code'), oCopyCodeLabel: st.oCopied==='code'?'¡Copiado!':'Copiar',
+      oCopyMsg: ()=>this.copy(st.oWaText,'msg'), oCopyMsgLabel: st.oCopied==='msg'?'¡Mensaje copiado!':'Copiar mensaje',
+      oFirstName: (o.nombre||'').split(' ')[0],
+      oWaText: st.oWaText, oWaUrl: st.oWaUrl,
+      oSubmit: (e)=>{
+        e.preventDefault();
+        const form=(e.target&&e.target.closest)?e.target.closest('form'):null; if(!form) return;
+        const fd=new FormData(form); const v=(k)=>String(fd.get(k)||'').replace(/\s+/g,' ').trim();
+        const d={nombre:v('nombre'),dni:v('dni').replace(/[^0-9]/g,''),cantidad:v('cantidad')||'1',direccion:v('direccion'),localidad:v('localidad'),provincia:v('provincia'),cp:v('cp').toUpperCase().replace(/\s/g,'')};
+        const faltan=[]; [['nombre','Nombre y apellido'],['dni','DNI'],['direccion','Dirección'],['localidad','Localidad'],['provincia','Provincia'],['cp','Código postal']].forEach(([k,l])=>{ if(!d[k]) faltan.push(l); });
+        if(faltan.length){ this.setState({oError:'Falta completar: '+faltan.join(', ')+'.'}); return; }
+        if(d.nombre.indexOf(' ')<0){ this.setState({oError:'Escribí tu nombre y tu apellido.'}); return; }
+        if(!/^\d{7,8}$/.test(d.dni)){ this.setState({oError:'Revisá el DNI: tiene que tener 7 u 8 números.'}); return; }
+        if(!/\d/.test(d.direccion)){ this.setState({oError:'Agregá la altura (el número) de tu dirección.'}); return; }
+        if(!/^(\d{4}|[A-Z]\d{4}[A-Z]{3})$/.test(d.cp)){ this.setState({oError:'Revisá el código postal: son 4 números (por ejemplo 5700) o el formato nuevo (por ejemplo D5700ABC).'}); return; }
+        const abc='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let code=this.state.o.code;
+        if(!code){ code='AG-'; for(let i=0;i<4;i++) code+=abc[Math.floor(Math.random()*abc.length)]; }
+        const no=setO(Object.assign(d,{code:code,pagador:this.state.o.pagador||d.nombre}),{oStep:2,oError:'',oQty:Number(d.cantidad)||1});
+        this.oSave({oStep:2,o:no}); this.goPedido();
+      },
+      oEdit: ()=>{ this.setState({oStep:1,oError:''}); this.oSave(null); this.goPedido(); },
+      oPaid: (e)=>{
+        e.preventDefault();
+        const form=(e.target&&e.target.closest)?e.target.closest('form'):null; if(!form) return;
+        const fd=new FormData(form); const pagador=String(fd.get('pagador')||'').replace(/\s+/g,' ').trim();
+        if(!pagador){ this.setState({oError:'Escribí a nombre de quién salió la transferencia.'}); return; }
+        if(!fd.get('pagado')){ this.setState({oError:'Marcá la casilla “Ya transferí” cuando hayas hecho el pago.'}); return; }
+        const no=Object.assign({},this.state.o,{pagador:pagador});
+        const text=this.oMessage(no); const url='https://wa.me/'+ORACULO.numero+'?text='+encodeURIComponent(text);
+        try{ window.open(url,'_blank','noopener'); }catch(err){}
+        this.setState({o:no,oStep:3,oError:'',oWaText:text,oWaUrl:url});
+        this.oSave({oStep:3,o:no,oWaText:text,oWaUrl:url}); this.goPedido();
+      },
+      oReset: ()=>{ this.setState({oStep:1,o:Object.assign({},O_EMPTY),oQty:1,oError:'',oWaText:'',oWaUrl:''}); this.oSave(null); this.goPedido(); },
       heroVideoRef: this.heroVideoRef,
       autoRef: this.autoRef,
       playing: playing,
