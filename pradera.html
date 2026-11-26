@@ -480,7 +480,7 @@ Terapia Ecuestre</a>
 <p style="margin: 0; font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--accent)">{{t.bajada}}</p>
 <div class="tmeta">
 <div><b>Cuándo</b><span>{{t.fecha}}</span></div>
-<div><b>Horario</b><span>{{t.horario}}</span></div>
+<template data-if value="{{t.hasHorario}}" hint-placeholder-val="{{ true }}"><div><b>Horario</b><span>{{t.horario}}</span></div></template>
 <template data-if value="{{t.hasLugar}}" hint-placeholder-val="{{ true }}"><div><b>Dónde</b><span>{{t.lugar}}</span></div></template>
 </div>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--muted)">{{t.desc}}</p>
@@ -491,7 +491,7 @@ Terapia Ecuestre</a>
 <ul class="tlist" style="padding-bottom: 12px"><template data-for list="{{t.incluye}}" as="x"><li>{{x}}</li></template></ul>
 </template>
 <template data-for list="{{t.dias}}" as="d">
-<div class="tday"><small>{{d.dia}} · {{d.eje}}</small><strong style="font-size: 17px">{{d.titulo}}</strong><span style="font-size: 14px; color: var(--muted)">{{d.horario}}</span><ul class="tlist"><template data-for list="{{d.items}}" as="x"><li>{{x}}</li></template></ul></div>
+<div class="tday"><small>{{d.dia}} · {{d.eje}}</small><strong style="font-size: 17px">{{d.titulo}}</strong><ul class="tlist"><template data-for list="{{d.items}}" as="x"><li>{{x}}</li></template></ul></div>
 </template>
 <template data-if value="{{t.hasLlevar}}" hint-placeholder-val="{{ true }}">
 <p style="margin: 0; padding: 12px 16px; border-radius: 14px; background: var(--soft); font-size: 15px; line-height: 1.5"><strong>Llevá:</strong> {{t.llevar}}</p>
@@ -776,16 +776,16 @@ const TALLERES_ALL=[
    cover:'ed1bf4d24475efd98372b89745ade7d3', coverPos:'50% 0%', coverAlt:'Flyer de Volver al Origen: mujeres abrazadas en ronda junto a caballos',
    flyers:['ed1bf4d24475efd98372b89745ade7d3']},
   {id:'angel', hasta:'2026-12-21', tag:'Recorrido de tres días', titulo:'El Ángel de la Navidad', bajada:'Un viaje hacia 2027',
-   fecha:'Sábado 19, domingo 20 y lunes 21 de diciembre', horario:'Distinto cada día (ver programa)', lugar:'', cuando:'19, 20 y 21 de diciembre',
+   fecha:'Sábado 19, domingo 20 y lunes 21 de diciembre', horario:'', lugar:'Arias, provincia de Córdoba, Argentina', cuando:'19, 20 y 21 de diciembre · Arias, Córdoba',
    desc:'Tres jornadas en tres grandes ejes: recibir, liberar y sembrar, y activar. Cada día tiene su identidad y juntos forman un único viaje. El Ángel abre el corazón, el Caballo ordena lo que necesita ser cerrado y transformado, y el Fuego activa y sella el compromiso con la nueva realidad.',
    incluye:[],
    dias:[
-     {dia:'Sábado 19', eje:'Eje 1 · Recibir', titulo:'Bienvenida al Ángel de la Navidad', horario:'9 a 12 h y 17 a 21 h', items:[]},
-     {dia:'Domingo 20', eje:'Eje 2 · Liberar y sembrar', titulo:'Constelaciones grupales ecuestres', horario:'9 a 12 h y 17 a 21 h', items:['Un día dedicado por completo a los caballos: celebrar lo vivido en 2026 y abrirnos con intención a lo que queremos crear en 2027, con Constelaciones Ecuestres y Coaching Sistémico con Caballos.','Cerrar: mirar qué necesita quedar en el ciclo anterior (cargas, historias, lealtades, vínculos, expectativas).','Sembrar: dar lugar a aquello que quiere empezar a tomar forma en 2027.','Cierre: cada persona elige una palabra-semilla para su 2027 y hace un último recorrido consciente junto al caballo.']},
-     {dia:'Lunes 21', eje:'Eje 3 · Activar', titulo:'Ritual del solsticio', horario:'5 a 9 h · Amanecer y salida del sol', items:['El significado del solsticio: la máxima expansión de la luz en el hemisferio sur, un portal de crecimiento, vitalidad y creación.','Meditación dinámica de activación, con cuerpo, respiración, movimiento e intención.','Declaración 2027: “En 2027 elijo…”, desde la decisión y el compromiso personal.','Cierre colectivo alrededor del fuego para cerrar los tres días.']}
+     {dia:'Sábado 19', eje:'Eje 1 · Recibir', titulo:'Bienvenida al Ángel', items:[]},
+     {dia:'Domingo 20', eje:'Eje 2 · Liberar y sembrar', titulo:'Constelaciones familiares', items:['Un día dedicado por completo a los caballos: celebrar lo vivido en 2026 y abrirnos con intención a lo que queremos crear en 2027, con Constelaciones Ecuestres y Coaching Sistémico con Caballos.','Cerrar: mirar qué necesita quedar en el ciclo anterior (cargas, historias, lealtades, vínculos, expectativas).','Sembrar: dar lugar a aquello que quiere empezar a tomar forma en 2027.','Cierre: cada persona elige una palabra-semilla para su 2027 y hace un último recorrido consciente junto al caballo.']},
+     {dia:'Lunes 21', eje:'Eje 3 · Activar', titulo:'Ritual del solsticio', items:['El significado del solsticio: la máxima expansión de la luz en el hemisferio sur, un portal de crecimiento, vitalidad y creación.','Meditación dinámica de activación, con cuerpo, respiración, movimiento e intención.','Declaración 2027: “En 2027 elijo…”, desde la decisión y el compromiso personal.','Cierre colectivo alrededor del fuego para cerrar los tres días.']}
    ], llevar:'',
    cover:'c53f5080d8229a98fed47469226fd610', coverPos:'50% 45%', coverAlt:'Mujer de blanco entre caballos en un corral al atardecer',
-   flyers:['c53f5080d8229a98fed47469226fd610','44c994bd38cd573460f9b641a468e283','4a3447060c45229672e46d262569dd44','b24d54211f1e10a616547c02c08fc3d8','1f86721754980227d97bf102f6184095']}
+   flyers:['c53f5080d8229a98fed47469226fd610','4a3447060c45229672e46d262569dd44','b24d54211f1e10a616547c02c08fc3d8','1f86721754980227d97bf102f6184095']}
 ];
 const TALLERES=TALLERES_ALL.filter((t)=>{ try{ return new Date(t.hasta+'T23:59:59')>=new Date(); }catch(e){ return true; } });
 const CONTACTOS={yani:{nombre:'Yani',numero:'5492664016300',tel:'+54 9 2664 01-6300'},mariana:{nombre:'Mariana',numero:'34623513822',tel:'+34 623 51 38 22'}};
@@ -957,7 +957,7 @@ class Component extends DCLogic {
           cover:img(t.cover), coverStyle:'object-position:'+t.coverPos,
           openFlyer: openAt(0),
           flyers: fl.map((src,i)=>({src:src, open:openAt(i)})),
-          hasLugar: !!t.lugar, hasIncluye: t.incluye.length>0, hasLlevar: !!t.llevar,
+          hasLugar: !!t.lugar, hasHorario: !!t.horario, hasIncluye: t.incluye.length>0, hasLlevar: !!t.llevar,
           masLabel: t.dias.length?'Ver el programa día por día':'Ver qué incluye',
           pickLabel: on?'Elegido · Completar mis datos':'Quiero ir a este encuentro',
           pick: ()=>{ this.setState({taller:t.id,formError:''}); setTimeout(()=>{ const el=document.getElementById('elegir-taller'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
